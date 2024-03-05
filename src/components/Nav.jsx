@@ -15,6 +15,7 @@ const Container = styled.div`
     position: sticky;
     top: 0;
     width: 100%;
+    z-index: 10;
 `;
 const Wrapper = styled.div`
     position: absolute;

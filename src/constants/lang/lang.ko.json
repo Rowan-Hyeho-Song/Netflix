@@ -11,5 +11,8 @@
     },
     "search": {
         "placeholder": "제목, 배우, 장르"
+    },
+    "btn": {
+        "details": "상세 정보"
     }
 }

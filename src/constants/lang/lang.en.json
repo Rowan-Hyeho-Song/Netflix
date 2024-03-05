@@ -11,5 +11,8 @@
     },
     "search": {
         "placeholder": "The title, actor, and genre"
+    },
+    "btn": {
+        "details": "Details"
     }
 }
