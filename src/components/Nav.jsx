@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { getViewMode } from "./MediaQuery";
 import { GoTriangleDown } from "react-icons/go";
 import { routers } from "@constants/Routers";
+import SearchBox from "@components/SearchBox";
 
 import Logo from "@components/Logo";
 
@@ -27,7 +28,6 @@ const MainHeader = styled.div`
     height: ${({ $mode }) => ($mode === "Pc" ? "70px" : "40px")};
     background-color: ${({ $bgColor }) => ($bgColor ? "transparent" : "#0a0a0a")};
 `;
-
 const Navigation = styled.ul`
     display: flex;
     margin: 0;
@@ -48,13 +48,21 @@ const Navigation = styled.ul`
 
     &.mobile-view {
         flex-direction: column;
+
+        .nav-tab-wrapper {
+            background-color: rgba(0, 0, 0, 0.9);
+            flex-direction: column;
+            position: absolute;
+            left: 0;
+            top: 60px;
+        }
         .nav-menu {
             flex: none;
             height: 40px;
             box-sizing: content-box;
             padding-bottom: 20px;
         }
-        &:not(.active) .nav-tab {
+        &:not(.active) .nav-tab-wrapper {
             display: none;
         }
         .nav-tab {
@@ -65,18 +73,17 @@ const Navigation = styled.ul`
             justify-content: center;
             min-width: 300px;
             height: 50px;
-            background-color: rgba(0, 0, 0, 0.9);
             transition: background-color 0.4s;
 
             &:hover {
-                background-color: rgba(0, 0, 0, 0.8);
+                background-color: hsla(0, 0%, 100%, 0.05);
             }
 
             &:first-of-type::before {
                 content: "";
                 position: absolute;
-                top: -18px;
-                left: 20px;
+                top: -15px;
+                left: calc(50% - 7px);
                 border: 7px solid transparent;
                 border-bottom: 10px solid #e5e5e5;
             }
@@ -88,6 +95,12 @@ const Navigation = styled.ul`
                 border-top: 3px solid #e5e5e5;
             }
         }
+    }
+
+    .nav-tab-wrapper {
+        display: flex;
+        list-style-type: none;
+        padding: 0;
     }
 
     .nav-menu {
@@ -114,6 +127,15 @@ const Navigation = styled.ul`
         &:not(.current):hover {
             color: #b3b3b3;
         }
+    }
+`;
+const SubNavigation = styled.div`
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+
+    &.mobile-view {
+        display: none;
     }
 `;
 
@@ -152,15 +174,20 @@ function Nav() {
                         <li className={"nav-menu"}>
                             Menu <GoTriangleDown className="nav-menu-icon" size={20} />
                         </li>
-                        {routers &&
-                            routers.map(({ name, path }, i) => {
-                                return (
-                                    <Link key={`nav-${i}`} className={`nav-tab ${location.pathname === path ? "current" : ""}`} to={path}>
-                                        <li>{name}</li>
-                                    </Link>
-                                );
-                            })}
+                        <ul className="nav-tab-wrapper">
+                            {routers &&
+                                routers.map(({ name, path }, i) => {
+                                    return (
+                                        <Link key={`nav-${i}`} className={`nav-tab ${location.pathname === path ? "current" : ""}`} to={path}>
+                                            <li>{name}</li>
+                                        </Link>
+                                    );
+                                })}
+                        </ul>
                     </Navigation>
+                    <SubNavigation className={device === "Pc" ? "pc-view" : "mobile-view"}>
+                        <SearchBox />
+                    </SubNavigation>
                 </MainHeader>
             </Wrapper>
         </Container>
