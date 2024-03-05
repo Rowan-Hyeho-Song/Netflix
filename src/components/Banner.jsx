@@ -19,7 +19,7 @@ const BannerWrapper = styled.div`
         left: 4%;
         top: 0;
         bottom: 35%;
-        width: 36%;
+        width: 36vw;
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -36,7 +36,7 @@ const BannerWrapper = styled.div`
             text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
             overflow: hidden;
             text-overflow: ellipsis;
-            margin-top: 20px;
+            margin-top: 4%;
             white-space: normal;
             line-height: 1.5;
             width: 90%;
@@ -49,7 +49,7 @@ const BannerWrapper = styled.div`
         }
         .play-button-group {
             width: 100%;
-            margin-top: 20px;
+            margin-top: 4%;
 
             .dummy-button {
                 display: inline-flex;
