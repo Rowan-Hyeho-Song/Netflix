@@ -52,12 +52,11 @@ const BannerWrapper = styled.div`
             margin-top: 20px;
 
             .dummy-button {
-                display: flex;
+                display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                width: 150px;
-                padding: 10px 16px;
-                border-radius: 5px;
+                padding: 2% 4%;
+                border-radius: 0.4rem;
                 background-color: rgba(109, 109, 110, 0.7);
                 color: #ffffff;
                 cursor: pointer;
@@ -154,7 +153,7 @@ function Banner() {
                 <div className="info-overview">{movie.overview}</div>
                 <div className="play-button-group">
                     <div className="dummy-button">
-                        <FiInfo className="btn-icon" size={26} />
+                        <FiInfo className="btn-icon" size={"1.1rem"} />
                         {t("btn.details")}
                     </div>
                 </div>
