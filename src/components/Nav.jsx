@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { bindScrollEvent } from "@hooks/useScroll";
 import styled from "styled-components";
 import { getViewMode } from "./MediaQuery";
 import { GoTriangleDown } from "react-icons/go";
 import { routers } from "@constants/Routers";
 import SearchBox from "@components/SearchBox";
+import LanguageBox from "@components/LanguageBox";
 
 import Logo from "@components/Logo";
 
@@ -143,21 +145,17 @@ function Nav() {
     const device = getViewMode();
     const location = useLocation();
     const [isNavTransparent, setIsNavTransparent] = useState(true);
+    const { t } = useTranslation();
+
     const handleScroll = () => {
         setIsNavTransparent(!(window.pageYOffset > 0));
     };
     bindScrollEvent(window, handleScroll);
 
-    const mouseEnterHandle = (e) => {
+    const toggleState = (e) => {
         if (device === "Mobile") {
             const target = e.currentTarget;
-            target.classList.add("active");
-        }
-    };
-    const mouseLeaveHandle = (e) => {
-        if (device === "Mobile") {
-            const target = e.currentTarget;
-            target.classList.remove("active");
+            target.classList.toggle("active");
         }
     };
 
@@ -166,20 +164,16 @@ function Nav() {
             <Wrapper>
                 <MainHeader $mode={device} $bgColor={isNavTransparent}>
                     <Logo />
-                    <Navigation
-                        className={device === "Pc" ? "pc-view" : "mobile-view"}
-                        onMouseEnter={mouseEnterHandle}
-                        onMouseLeave={mouseLeaveHandle}
-                    >
+                    <Navigation className={device === "Pc" ? "pc-view" : "mobile-view"} onMouseEnter={toggleState} onMouseLeave={toggleState}>
                         <li className={"nav-menu"}>
-                            Menu <GoTriangleDown className="nav-menu-icon" size={20} />
+                            {t("tab.menu")} <GoTriangleDown className="nav-menu-icon" size={20} />
                         </li>
                         <ul className="nav-tab-wrapper">
                             {routers &&
                                 routers.map(({ name, path }, i) => {
                                     return (
                                         <Link key={`nav-${i}`} className={`nav-tab ${location.pathname === path ? "current" : ""}`} to={path}>
-                                            <li>{name}</li>
+                                            <li>{t(name)}</li>
                                         </Link>
                                     );
                                 })}
@@ -187,6 +181,7 @@ function Nav() {
                     </Navigation>
                     <SubNavigation className={device === "Pc" ? "pc-view" : "mobile-view"}>
                         <SearchBox />
+                        <LanguageBox />
                     </SubNavigation>
                 </MainHeader>
             </Wrapper>

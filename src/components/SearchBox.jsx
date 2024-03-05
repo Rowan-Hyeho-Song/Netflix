@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import { GoSearch, GoX } from "react-icons/go";
 
 const Container = styled.div`
@@ -58,6 +59,7 @@ const Container = styled.div`
 
 function SearchBox() {
     const [open, setOpen] = useState(false);
+    const { t } = useTranslation();
     const toggleState = () => {
         setOpen((prevState) => !prevState);
     };
@@ -78,7 +80,7 @@ function SearchBox() {
                 id="searchInput"
                 className={`search-input`}
                 type="text"
-                placeholder="The title, actor, and genre"
+                placeholder={t("search.placeholder")}
                 autoComplete="off"
                 onBlur={closeBox}
             />

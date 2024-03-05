@@ -1,0 +1,15 @@
+{
+    "tab": {
+        "menu": "Menu",
+        "home": "Home",
+        "series": "Series",
+        "movie": "Movie"
+    },
+    "language": {
+        "en-US": "English(US)",
+        "ko-KR": "Korean"
+    },
+    "search": {
+        "placeholder": "The title, actor, and genre"
+    }
+}

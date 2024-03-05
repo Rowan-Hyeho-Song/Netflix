@@ -1,0 +1,15 @@
+{
+    "tab": {
+        "menu": "메뉴",
+        "home": "홈",
+        "series": "시리즈",
+        "movie": "영화"
+    },
+    "language": {
+        "en-US": "영어(미국)",
+        "ko-KR": "한국어"
+    },
+    "search": {
+        "placeholder": "제목, 배우, 장르"
+    }
+}

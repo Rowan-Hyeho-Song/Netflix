@@ -3,9 +3,9 @@ import Series from "@pages/Series";
 import Movie from "@pages/Movie";
 
 const routers = [
-    { name: "Home", path: "/", element: <Home /> },
-    { name: "Series", path: "/series", element: <Series /> },
-    { name: "Movie", path: "/movie", element: <Movie /> },
+    { name: "tab.home", path: "/", element: <Home /> },
+    { name: "tab.series", path: "/series", element: <Series /> },
+    { name: "tab.movie", path: "/movie", element: <Movie /> },
 ];
 
 export { routers };
