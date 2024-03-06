@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import i18n from "@constants/lang/i18n";
 import { FiInfo } from "react-icons/fi";
+import Row from "@components/Row";
 
 const IMAGE_PATH = "https://image.tmdb.org/t/p/original/";
 const BannerWrapper = styled.div`
@@ -24,6 +25,10 @@ const BannerWrapper = styled.div`
         flex-direction: column;
         justify-content: flex-end;
         z-index: 3;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
 
         .title-logo {
             width: 100%;
@@ -39,6 +44,7 @@ const BannerWrapper = styled.div`
             margin-top: 4%;
             white-space: normal;
             line-height: 1.5;
+            font-size: 1.2vw;
             width: 90%;
             height: 4.5em;
             text-align: left;
@@ -56,7 +62,7 @@ const BannerWrapper = styled.div`
                 align-items: center;
                 justify-content: center;
                 padding: 2% 4%;
-                border-radius: 0.4rem;
+                border-radius: 0.5vw;
                 background-color: rgba(109, 109, 110, 0.7);
                 color: #ffffff;
                 cursor: pointer;
@@ -66,10 +72,35 @@ const BannerWrapper = styled.div`
                 }
 
                 .btn-icon {
-                    margin-right: 10px;
+                    margin-right: 0.7vw;
                 }
             }
         }
+    }
+
+    .row-layer {
+        background-image: linear-gradient(
+            180deg,
+            hsla(0, 0%, 8%, 0) 0,
+            hsla(0, 0%, 8%, 0.15) 15%,
+            hsla(0, 0%, 8%, 0.35) 29%,
+            hsla(0, 0%, 8%, 0.58) 44%,
+            #141414 68%,
+            #141414
+        );
+        background-position: 0 top;
+        background-repeat: repeat-x;
+        background-size: 100% 100%;
+        bottom: -1px;
+        height: 14.7vw;
+        opacity: 1;
+        top: auto;
+        width: 100%;
+
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: 5;
     }
 `;
 
@@ -89,7 +120,6 @@ const BackDropImg = styled.div`
 
 function Banner() {
     const [movie, setMovie] = useState({});
-    const [movieList, setMovieList] = useState([]);
     const [randomNum, setRandomNum] = useState(null);
     const { t } = useTranslation();
     const lang = i18n.language;
@@ -119,7 +149,6 @@ function Banner() {
                 },
             });
             setMovie(targetMovie);
-            setMovieList(movieList);
         } catch (err) {
             console.error("Axios Error: ", err);
         }
@@ -157,6 +186,9 @@ function Banner() {
                         {t("btn.details")}
                     </div>
                 </div>
+            </div>
+            <div className="row-layer">
+                <Row title="rows.title.nowPlaying" />
             </div>
         </BannerWrapper>
     );
