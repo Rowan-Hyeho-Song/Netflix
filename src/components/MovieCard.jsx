@@ -32,6 +32,7 @@ function MovieCard({ $data, page, order }) {
         fetchData();
     }, [lang]);
 
+    // 이미지가 없는 경우도 있어서 해당 상황일 경우 - 기본 백드롭/포스터를 사용하도록 적용
     const fetchData = async () => {
         try {
             const { data } = await axios.get(`movie/${$data.id}/images`, {
@@ -44,7 +45,8 @@ function MovieCard({ $data, page, order }) {
             setImage((backdrops[0] || posters[0]).file_path);
         } catch (err) {
             // console.error(`[MovieCard:${page}:${order}] Axios Error: `, err);
-            setImage($data.poster_path);
+            const { backdrop_path: backdrop, poster_path: poster } = $data;
+            setImage(backdrop || poster);
         }
     };
 
