@@ -9,6 +9,18 @@
         "en-US": "English(US)",
         "ko-KR": "Korean"
     },
+    "rows": {
+        "title": {
+            "nowPlaying": "Now Playing Contents",
+            "netflixOriginals": "Netflix Original Contents",
+            "topRadted": "Popular Contents",
+            "action": "Action Movies",
+            "comedy": "Comedy Movies",
+            "horrory": "Horrory Movies",
+            "romance": "Romance Movies",
+            "documentaries": "Documentaries"
+        }
+    },
     "search": {
         "placeholder": "The title, actor, and genre"
     },

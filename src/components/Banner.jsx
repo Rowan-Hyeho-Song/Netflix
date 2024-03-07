@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import i18n from "@constants/lang/i18n";
+import { RowItems } from "@constants/RowItems";
 import { FiInfo } from "react-icons/fi";
 import Row from "@components/Row";
 
@@ -150,7 +151,7 @@ function Banner() {
             });
             setMovie(targetMovie);
         } catch (err) {
-            console.error("Axios Error: ", err);
+            console.error("[Banner] Axios Error: ", err);
         }
     };
 
@@ -187,9 +188,7 @@ function Banner() {
                     </div>
                 </div>
             </div>
-            <div className="row-layer">
-                <Row title="rows.title.nowPlaying" />
-            </div>
+            <div className="row-layer">{RowItems && RowItems.map((items, i) => <Row key={`row-item-${i}`} {...items} />)}</div>
         </BannerWrapper>
     );
 }

@@ -9,6 +9,18 @@
         "en-US": "영어(미국)",
         "ko-KR": "한국어"
     },
+    "rows": {
+        "title": {
+            "nowPlaying": "현재 상영중인 콘텐츠",
+            "netflixOriginals": "넷플릭스 오리지널 콘텐츠",
+            "topRadted": "가장 인기있는 작품",
+            "action": "액션 영화",
+            "comedy": "코미디 영화",
+            "horrory": "공포 영화",
+            "romance": "로맨스 영화",
+            "documentaries": "다큐멘터리"
+        }
+    },
     "search": {
         "placeholder": "제목, 배우, 장르"
     },
