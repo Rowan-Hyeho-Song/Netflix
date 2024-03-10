@@ -1,4 +1,4 @@
-import requests from "@api/requests";
+import { requests } from "@api/requests";
 
 const RowItems = [
     { request: requests.fetchNowPlaying, title: "rows.title.nowPlaying" },
