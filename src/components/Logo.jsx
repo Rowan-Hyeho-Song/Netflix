@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Pc, Mobile } from "./MediaQuery";
+import { getViewMode } from "./MediaQuery";
 import { Link } from "react-router-dom";
 import fullLogoSvg from "@assets/netflix_full_logo.svg";
 import LogoSvg from "@assets/netflix_logo.svg";
@@ -15,15 +15,23 @@ const Container = styled.div`
     }
 `;
 function Logo() {
+    const vm = getViewMode();
+    const logos = {
+        Pc: {
+            icon: fullLogoSvg,
+            style: { width: "92px" },
+        },
+        Mobile: {
+            icon: LogoSvg,
+            style: { height: "20px" },
+        },
+    };
+
+    const d = logos[vm];
     return (
         <Container>
             <Link to="/" className="logo">
-                <Pc>
-                    <img src={fullLogoSvg} style={{ width: "92px" }} alt="Netflix" />
-                </Pc>
-                <Mobile>
-                    <img src={LogoSvg} style={{ height: "20px" }} alt="Netflix" />
-                </Mobile>
+                <img src={d.icon} style={d.style} alt="Netflix" />
             </Link>
         </Container>
     );
