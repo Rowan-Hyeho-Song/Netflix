@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { Pc, Mobile } from "./MediaQuery";
 import { Link } from "react-router-dom";
-import NetflixFullLogo from "@assets/Netflix_logo_full.svg";
-import NetflixLogo from "@assets/Netflix_logo.svg";
+import fullLogoSvg from "@assets/netflix_full_logo.svg";
+import LogoSvg from "@assets/netflix_logo.svg";
 
 const Container = styled.div`
     display: flex;
@@ -19,10 +19,10 @@ function Logo() {
         <Container>
             <Link to="/" className="logo">
                 <Pc>
-                    <img src={NetflixFullLogo} style={{ width: "92px" }} />
+                    <img src={fullLogoSvg} style={{ width: "92px" }} />
                 </Pc>
                 <Mobile>
-                    <img src={NetflixLogo} style={{ height: "20px" }} />
+                    <img src={LogoSvg} style={{ height: "20px" }} />
                 </Mobile>
             </Link>
         </Container>
