@@ -84,7 +84,7 @@ function LanguageBox() {
     const { t } = useTranslation();
     const currentMenu = () => {
         const find = supportLang.find(({ key }) => key === curLang);
-        return <img className="cur-lang-icon" src={find.icon} />;
+        return <img className="cur-lang-icon" src={find.icon} alt={find.key} />;
     };
     const toggleState = (e) => {
         const target = e.currentTarget;

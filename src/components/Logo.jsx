@@ -19,10 +19,10 @@ function Logo() {
         <Container>
             <Link to="/" className="logo">
                 <Pc>
-                    <img src={fullLogoSvg} style={{ width: "92px" }} />
+                    <img src={fullLogoSvg} style={{ width: "92px" }} alt="Netflix" />
                 </Pc>
                 <Mobile>
-                    <img src={LogoSvg} style={{ height: "20px" }} />
+                    <img src={LogoSvg} style={{ height: "20px" }} alt="Netflix" />
                 </Mobile>
             </Link>
         </Container>
