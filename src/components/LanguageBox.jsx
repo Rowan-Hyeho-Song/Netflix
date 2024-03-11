@@ -63,6 +63,8 @@ const Container = styled.div`
             width: 100%;
             height: 50px;
 
+            transition: background-color 0.4s;
+
             &:hover {
                 background-color: hsla(0, 0%, 100%, 0.05);
             }

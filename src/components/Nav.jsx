@@ -6,9 +6,8 @@ import styled from "styled-components";
 import { getViewMode } from "./MediaQuery";
 import { GoTriangleDown } from "react-icons/go";
 import { routers } from "@constants/Routers";
-import SearchBox from "@components/SearchBox";
+// import SearchBox from "@components/SearchBox";
 import LanguageBox from "@components/LanguageBox";
-
 import Logo from "@components/Logo";
 
 const Container = styled.div`
@@ -36,6 +35,7 @@ const Navigation = styled.ul`
     margin: 0;
     padding: 0;
     list-style-type: none;
+    font-size: 14px;
 
     &.pc-view {
         align-items: center;
@@ -181,7 +181,7 @@ function Nav() {
                         </ul>
                     </Navigation>
                     <SubNavigation className={device === "Pc" ? "pc-view" : "mobile-view"}>
-                        <SearchBox />
+                        {/* <SearchBox /> */}
                         <LanguageBox />
                     </SubNavigation>
                 </MainHeader>

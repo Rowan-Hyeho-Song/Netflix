@@ -1,95 +1,181 @@
 import axios from "@api/axios";
-import requests from "@api/requests";
+import { requests, imagePath } from "@api/requests";
 import { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import i18n from "@constants/lang/i18n";
-import { FiInfo } from "react-icons/fi";
+import Button from "@components/Button";
 
-const IMAGE_PATH = "https://image.tmdb.org/t/p/original/";
 const BannerWrapper = styled.div`
     position: relative;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 56vw;
+    z-index: 1;
 
-    .info-area {
-        position: absolute;
-        left: 4%;
+    .banner-row {
+        position: relative;
+        left: 0;
+        right: 0;
         top: 0;
-        bottom: 35%;
-        width: 36vw;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        z-index: 3;
+        margin-bottom: 20px;
+        padding-bottom: 40%;
+        background-color: #000;
+        touch-action: pan-y;
 
-        .title-logo {
+        .banner {
+            position: absolute;
             width: 100%;
-            > img {
+            height: 56.25vw;
+            background-color: #000;
+            z-index: 0;
+
+            .banner-motion,
+            .full-screen,
+            .image-wrapper,
+            .static-image,
+            .info-wrapper {
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+            }
+            .image-wrapper {
+                .static-image {
+                    width: 100%;
+
+                    background-position: 50%;
+                    background-size: cover;
+                    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+                    filter: alpha(opacity = 100);
+
+                    opacity: 1;
+                    transition: opacity 0.4s cubic-bezier(0.665, 0.235, 0.265, 0.8) 0s;
+                }
+
+                .vignette {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    z-index: 8;
+                }
+                .banner-vignette {
+                    top: 0;
+                    right: 26.09%;
+                    bottom: 0;
+
+                    background: linear-gradient(77deg, rgba(0, 0, 0, 0.6), transparent 85%);
+
+                    opacity: 1;
+                    transition: opacity 0.5s;
+                }
+                .bottom-vignette {
+                    width: 100%;
+                    height: 14.7vw;
+                    top: auto;
+                    bottom: -1px;
+
+                    background-color: transparent;
+                    background-image: linear-gradient(
+                        180deg,
+                        hsla(0, 0%, 8%, 0) 0,
+                        hsla(0, 0%, 8%, 0.15) 15%,
+                        hsla(0, 0%, 8%, 0.35) 29%,
+                        hsla(0, 0%, 8%, 0.58) 44%,
+                        #141414 68%,
+                        #141414
+                    );
+                    background-position: 0 top;
+                    background-repeat: repeat-x;
+                    background-size: 100% 100%;
+                    opacity: 1;
+                }
+            }
+            .bottom-layer {
+                z-index: 2;
+            }
+
+            .info-wrapper {
                 width: 100%;
+                height: 100%;
+
+                .info {
+                    position: absolute;
+                    top: 0;
+                    bottom: 35%;
+                    left: 4%;
+                    display: flex;
+                    width: 36%;
+                    flex-direction: column;
+                    justify-content: flex-end;
+                    z-index: 10;
+
+                    .title-and-overview {
+                        width: 100%;
+                        transition: transform 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+
+                        .title-animation {
+                            transform-origin: left bottom;
+                            transition: transform 1.3s;
+
+                            .banner-title {
+                                position: relative;
+                                margin-bottom: 1.2vw;
+                                min-height: 13.2vw;
+
+                                img {
+                                    transform-origin: bottom left;
+                                    width: 100%;
+                                }
+                            }
+                        }
+                        .overview-animation {
+                            transition: transform 1.3s;
+                            opacity: 1;
+
+                            .banner-overview {
+                                width: 100%;
+
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: normal;
+                                line-height: 1.5em;
+                                height: 4.5em;
+                                text-align: left;
+                                word-wrap: break-word;
+                                display: -webkit-box;
+                                -webkit-line-clamp: 3;
+                                -webkit-box-orient: vertical;
+
+                                color: #fff;
+                                font-size: 1.2vw;
+                                font-weight: 400;
+                                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.45);
+                            }
+                        }
+
+                        .button-group {
+                            display: flex;
+                            margin-top: 1.5vw;
+                            white-space: nowrap;
+
+                            .detail-button {
+                                background-color: rgba(109, 109, 110, 0.7);
+                                color: #ffffff;
+                                border-radius: 4px;
+
+                                &:hover {
+                                    background-color: rgba(109, 109, 110, 0.4);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
-        .info-overview {
-            color: #ffffff;
-            text-shadow: 0px 0px 5px rgba(0, 0, 0, 1);
-            overflow: hidden;
-            text-overflow: ellipsis;
-            margin-top: 4%;
-            white-space: normal;
-            line-height: 1.5;
-            width: 90%;
-            height: 4.5em;
-            text-align: left;
-            word-wrap: break-word;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-        }
-        .play-button-group {
-            width: 100%;
-            margin-top: 4%;
-
-            .dummy-button {
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                padding: 2% 4%;
-                border-radius: 0.4rem;
-                background-color: rgba(109, 109, 110, 0.7);
-                color: #ffffff;
-                cursor: pointer;
-
-                &:hover {
-                    background-color: rgba(109, 109, 110, 0.4);
-                }
-
-                .btn-icon {
-                    margin-right: 10px;
-                }
-            }
-        }
-    }
-`;
-
-const BackDropImg = styled.div`
-    width: 100%;
-    height: 100%;
-    background-image: url(${IMAGE_PATH}/${({ $path }) => $path});
-    background-position: top center;
-    background-size: cover;
-
-    .backdrop-cover {
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
     }
 `;
 
 function Banner() {
     const [movie, setMovie] = useState({});
-    const [movieList, setMovieList] = useState([]);
     const [randomNum, setRandomNum] = useState(null);
     const { t } = useTranslation();
     const lang = i18n.language;
@@ -119,9 +205,8 @@ function Banner() {
                 },
             });
             setMovie(targetMovie);
-            setMovieList(movieList);
         } catch (err) {
-            console.error("Axios Error: ", err);
+            console.error("[Banner] Axios Error: ", err);
         }
     };
 
@@ -136,7 +221,7 @@ function Banner() {
 
             if (filtered.length > 0) {
                 const { file_path } = filtered[0];
-                return <img src={`${IMAGE_PATH}${file_path}`} alt={movie.title}></img>;
+                return <img src={`${imagePath}${file_path}`} alt={movie.title}></img>;
             } else {
                 return <div className="text-title">{movie.title}</div>;
             }
@@ -145,16 +230,37 @@ function Banner() {
 
     return (
         <BannerWrapper>
-            <BackDropImg $path={movie.backdrop_path}>
-                <div className="backdrop-cover"></div>
-            </BackDropImg>
-            <div className="info-area">
-                <div className="title-logo">{getTitleLogo()}</div>
-                <div className="info-overview">{movie.overview}</div>
-                <div className="play-button-group">
-                    <div className="dummy-button">
-                        <FiInfo className="btn-icon" size={"1.1rem"} />
-                        {t("btn.details")}
+            <div className="banner-row">
+                <div className="banner">
+                    <div className="banner-motion">
+                        <div className="full-screen bottom-layer">
+                            <div className="image-wrapper">
+                                <img className="static-image" src={`${imagePath}${movie.backdrop_path}`} />
+                                <div className="vignette banner-vignette"></div>
+                                <div className="vignette bottom-vignette"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="info-wrapper">
+                        <div className="info">
+                            <div className="title-and-overview">
+                                <div className="title-animation">
+                                    <div className="banner-title">{getTitleLogo()}</div>
+                                </div>
+                                <div className="overview-animation">
+                                    <div className="banner-overview">{movie.overview}</div>
+                                </div>
+                                <div className="button-group">
+                                    <Button
+                                        className="detail-button"
+                                        lIcon="Info"
+                                        iAsset="fi"
+                                        label={t("btn.details")}
+                                        onClick={() => alert("Not working...")}
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
