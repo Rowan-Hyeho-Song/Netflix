@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { getViewMode } from "./MediaQuery";
 import { GoTriangleDown } from "react-icons/go";
 import { routers } from "@constants/Routers";
-import SearchBox from "@components/SearchBox";
+// import SearchBox from "@components/SearchBox";
 import LanguageBox from "@components/LanguageBox";
 import Logo from "@components/Logo";
 
@@ -181,7 +181,7 @@ function Nav() {
                         </ul>
                     </Navigation>
                     <SubNavigation className={device === "Pc" ? "pc-view" : "mobile-view"}>
-                        <SearchBox />
+                        {/* <SearchBox /> */}
                         <LanguageBox />
                     </SubNavigation>
                 </MainHeader>

@@ -251,7 +251,13 @@ function Banner() {
                                     <div className="banner-overview">{movie.overview}</div>
                                 </div>
                                 <div className="button-group">
-                                    <Button className="detail-button" lIcon="Info" iAsset="fi" label={t("btn.details")} />
+                                    <Button
+                                        className="detail-button"
+                                        lIcon="Info"
+                                        iAsset="fi"
+                                        label={t("btn.details")}
+                                        onClick={() => alert("Not working...")}
+                                    />
                                 </div>
                             </div>
                         </div>

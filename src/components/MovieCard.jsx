@@ -3,6 +3,7 @@ import styled from "styled-components";
 import axios from "@api/axios";
 import i18n from "@constants/lang/i18n";
 import { imagePath } from "@api/requests";
+import MovieDetailModal from "@components/modal/MovieDetailModal";
 
 const Container = styled.div`
     .card-contents {
@@ -55,11 +56,13 @@ function MovieCard({ $data, page, order }) {
 
     return (
         <Container className={`movie-card-${page}-${order}`}>
-            <div className="card-contents">
-                <div className="box-art">
-                    <img src={`${imagePath}${image}`} />
+            <MovieDetailModal data={$data} image={image}>
+                <div className="card-contents">
+                    <div className="box-art">
+                        <img src={`${imagePath}${image}`} />
+                    </div>
                 </div>
-            </div>
+            </MovieDetailModal>
         </Container>
     );
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect, useLayoutEffect, useMemo, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { debounce } from "lodash";
 import { media, getNowBreakPoint } from "./MediaQuery";
