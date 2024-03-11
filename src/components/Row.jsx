@@ -46,7 +46,7 @@ function Row({ title, request }) {
                 },
             });
             const rst = req.data.results;
-            setList(rst);
+            setList(rst.map((d, i) => ({ ...d, order: i })));
         } catch (err) {
             console.error("[Row] Axios Error: ", err);
         }

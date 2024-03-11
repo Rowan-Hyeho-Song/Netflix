@@ -1,18 +1,21 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import styled from "styled-components";
 import axios from "@api/axios";
 import i18n from "@constants/lang/i18n";
+import { imagePath } from "@api/requests";
 
-const IMAGE_PATH = "https://image.tmdb.org/t/p/original/";
 const Container = styled.div`
     .card-contents {
+        cursor: pointer;
+
         .box-art {
             position: relative;
             width: 100%;
             height: 0;
             overflow: hidden;
             padding: 28.125% 0;
-            background-color: red;
+            background-color: #545454;
+            border-radius: 0.3rem;
 
             img {
                 position: absolute;
@@ -24,13 +27,14 @@ const Container = styled.div`
 `;
 
 function MovieCard({ $data, page, order }) {
-    const [image, setImage] = useState({});
+    const { backdrop_path: backdrop, poster_path: poster } = $data;
+    const [image, setImage] = useState();
     const lang = i18n.language;
     const langAbbr = lang.split("-")[0];
 
     useEffect(() => {
         fetchData();
-    }, [lang]);
+    }, [lang, $data]);
 
     // 이미지가 없는 경우도 있어서 해당 상황일 경우 - 기본 백드롭/포스터를 사용하도록 적용
     const fetchData = async () => {
@@ -41,11 +45,10 @@ function MovieCard({ $data, page, order }) {
                     include_image_language: `${langAbbr},en`,
                 },
             });
-            const { backdrops, posters } = data;
-            setImage((backdrops[0] || posters[0]).file_path);
+            const { backdrops } = data;
+            setImage(backdrops[0].file_path || backdrop || poster);
         } catch (err) {
             // console.error(`[MovieCard:${page}:${order}] Axios Error: `, err);
-            const { backdrop_path: backdrop, poster_path: poster } = $data;
             setImage(backdrop || poster);
         }
     };
@@ -54,11 +57,11 @@ function MovieCard({ $data, page, order }) {
         <Container className={`movie-card-${page}-${order}`}>
             <div className="card-contents">
                 <div className="box-art">
-                    <img src={`${IMAGE_PATH}${image}`} />
+                    <img src={`${imagePath}${image}`} />
                 </div>
             </div>
         </Container>
     );
 }
 
-export default MovieCard;
+export default memo(MovieCard);

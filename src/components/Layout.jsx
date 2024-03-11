@@ -10,11 +10,11 @@ const Container = styled.div`
     min-height: 100vh;
 `;
 
-function Layout({ children }) {
+function Layout() {
     return (
         <Container>
             <Banner />
-            <Contents>{children}</Contents>
+            <Contents />
             <Footer />
         </Container>
     );
