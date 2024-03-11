@@ -33,7 +33,7 @@
 			run: npm install
 		- name: Set environment variables
 			run: |
-			echo "VITE_API_KEY=${{ secrets.VITE_API_KEY }}" >> $GITHUB_ENV
+				echo "VITE_API_KEY=${{ secrets.VITE_API_KEY }}" >> $GITHUB_ENV
 		- name: Build
 			run: npm run build
 		- name: Setup Pages
