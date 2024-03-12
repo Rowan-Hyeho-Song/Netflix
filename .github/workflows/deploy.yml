@@ -1,21 +1,16 @@
-# 워크플로우 이름
 name: Deploy static content to Pages
 
 on:
-	# 설정 브랜치에 푸시 이벤트 발생시 실행
 	push:
 		branches: ['main']
 
-	# Action에서 수동으로 워크플로우 실행 가능하게 구성
 	workflow_dispatch:
-
-# GITHUB_TOKEN 권한을 설정하여 pages에 배포할 수 있도록 설정
+ 
 permissions:
 	contents: read
 	pages: write
 	id-token: write
 
-# 동시에 하나의 배포만 허용하도록 구성
 concurrency:
 	group: 'pages'
 	cancel-in-progress: true
@@ -28,7 +23,7 @@ jobs:
 		runs-on: ubuntu-latest
 		steps:
 			- name: Checkout
-				uses: actions/checkout@v3
+				uses: actions/checkout@v4
 			- name: Set up Node
 				uses: actions/setup-node@v3
 				with:
@@ -36,8 +31,6 @@ jobs:
 					cache: 'npm'
 			- name: Install dependencies
 				run: npm install
-			- name: Set environment variables
-				run: echo "VITE_API_KEY=${{ secrets.VITE_API_KEY }}" >> $GITHUB_ENV
 			- name: Build
 				run: npm run build
 			- name: Setup Pages
