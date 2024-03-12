@@ -1,46 +1,51 @@
-	name: Deploy static content to Pages
+# 워크플로우 이름
+name: Deploy static content to Pages
 
-	on:
+on:
+	# 설정 브랜치에 푸시 이벤트 발생시 실행
 	push:
 		branches: ['main']
 
+	# Action에서 수동으로 워크플로우 실행 가능하게 구성
 	workflow_dispatch:
 
-	permissions:
+# GITHUB_TOKEN 권한을 설정하여 pages에 배포할 수 있도록 설정
+permissions:
 	contents: read
 	pages: write
 	id-token: write
 
-	concurrency:
+# 동시에 하나의 배포만 허용하도록 구성
+concurrency:
 	group: 'pages'
 	cancel-in-progress: true
 
-	jobs:
+jobs:
 	deploy:
 		environment:
-		name: github-pages
-		url: ${{ steps.deployment.outputs.page_url }}
+			name: github-pages
+			url: ${{ steps.deployment.outputs.page_url }}
 		runs-on: ubuntu-latest
 		steps:
-		- name: Checkout
-		  uses: actions/checkout@v3
-		- name: Set up Node
-		  uses: actions/setup-node@v3
-		  with:
-		  node-version: 18
-		  cache: 'npm'
-		- name: Install dependencies
-		  run: npm install
-		- name: Set environment variables
-		  run: echo "VITE_API_KEY=${{secrets.VITE_API_KEY}}" >> $GITHUB_ENV
-		- name: Build
-		  run: npm run build
-		- name: Setup Pages
-		  uses: actions/configure-pages@v3
-		- name: Upload artifact
-		  uses: actions/upload-pages-artifact@v1
-		  with:
-		  path: './dist'
-		- name: Deploy to GitHub Pages
-		  id: deployment
-		  uses: actions/deploy-pages@v1
+			- name: Checkout
+				uses: actions/checkout@v3
+			- name: Set up Node
+				uses: actions/setup-node@v3
+				with:
+					node-version: 18
+					cache: 'npm'
+			- name: Install dependencies
+				run: npm install
+			- name: Set environment variables
+				run: echo "VITE_API_KEY=${{secrets.VITE_API_KEY}}" >> $GITHUB_ENV
+			- name: Build
+				run: npm run build
+			- name: Setup Pages
+				uses: actions/configure-pages@v3
+			- name: Upload artifact
+				uses: actions/upload-pages-artifact@v1
+				with:
+					path: './dist'
+			- name: Deploy to GitHub Pages
+				id: deployment
+				uses: actions/deploy-pages@v1
