@@ -31,6 +31,7 @@ const ModalHoverTrigger = styled.div`
 
 const ModalWrapper = styled.div`
     display: flex;
+    max-width: 450px;
     flex-direction: column;
     position: absolute;
     border-radius: 6px;
@@ -49,8 +50,11 @@ const ModalWrapper = styled.div`
         position: relative;
         background-color: #000000;
         width: 100%;
+
         img {
             width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
     }
     .info-layer {
