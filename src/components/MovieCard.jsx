@@ -61,7 +61,7 @@ function MovieCard({ $data, page, order }) {
             <MovieDetailModal data={$data} image={image}>
                 <div className="card-contents">
                     <div className="box-art">
-                        <img src={`${imagePath}${image}`} />
+                        <img src={`${imagePath}${image}`} alt="poster" />
                     </div>
                 </div>
             </MovieDetailModal>

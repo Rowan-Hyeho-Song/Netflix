@@ -235,7 +235,7 @@ function Banner() {
                     <div className="banner-motion">
                         <div className="full-screen bottom-layer">
                             <div className="image-wrapper">
-                                <img className="static-image" src={`${imagePath}${movie.backdrop_path}`} />
+                                <img className="static-image" src={`${imagePath}${movie.backdrop_path}`} alt="backdrop" />
                                 <div className="vignette banner-vignette"></div>
                                 <div className="vignette bottom-vignette"></div>
                             </div>

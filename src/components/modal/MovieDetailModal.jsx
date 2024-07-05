@@ -146,7 +146,7 @@ function MovieDetailModal({ children, data, image }) {
                 <ModalPortal>
                     <ModalWrapper style={pos.current.style}>
                         <div className="poster-layer">
-                            <img src={`${imagePath}${image}`} />
+                            <img src={`${imagePath}${image}`} alt={data.title || data.name} />
                         </div>
                         <div className="info-layer">
                             <div className="modal-info-wrapper">
