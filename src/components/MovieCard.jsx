@@ -42,16 +42,17 @@ function MovieCard({ $data, page, order }) {
     // 이미지가 없는 경우도 있어서 해당 상황일 경우 - 기본 백드롭/포스터를 사용하도록 적용
     const fetchData = async () => {
         try {
-            const { data } = await axios.get(`movie/${$data.id}/images`, {
-                params: {
-                    language: lang,
-                    include_image_language: `${langAbbr},en`,
-                },
-            });
+            const { data } = await axios
+                .get(`movie/${$data?.id}/images`, {
+                    params: {
+                        language: lang,
+                        include_image_language: `${langAbbr},en`,
+                    },
+                })
+                .catch((err) => {});
             const { backdrops } = data;
             setImage(backdrops[0].file_path || backdrop || poster);
         } catch (err) {
-            // console.error(`[MovieCard:${page}:${order}] Axios Error: `, err);
             setImage(backdrop || poster);
         }
     };
@@ -60,9 +61,7 @@ function MovieCard({ $data, page, order }) {
         <Container className={`movie-card-${page}-${order}`}>
             <MovieDetailModal data={$data} image={image}>
                 <div className="card-contents">
-                    <div className="box-art">
-                        <img src={`${imagePath}${image}`} alt="poster" />
-                    </div>
+                    <div className="box-art">{image != undefined && <img src={`${imagePath}${image}`} alt="poster" loading="lazy" />}</div>
                 </div>
             </MovieDetailModal>
         </Container>
