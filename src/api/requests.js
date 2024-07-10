@@ -9,6 +9,6 @@ const requests = {
     fetchRomanceMovies: "/discover/movie?with_genres=10749",
     fetchDocumentaries: "/discover/movie?with_genres=99",
 };
-const imagePath = "https://image.tmdb.org/t/p/original/";
+const imagePath = "https://image.tmdb.org/t/p/original";
 
 export { requests, imagePath };

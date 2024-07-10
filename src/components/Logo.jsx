@@ -31,7 +31,7 @@ function Logo() {
     return (
         <Container>
             <Link to="/" className="logo">
-                <img src={d.icon} style={d.style} alt="Netflix" />
+                <img src={d.icon} style={d.style} alt="Netflix" loading="lazy" />
             </Link>
         </Container>
     );

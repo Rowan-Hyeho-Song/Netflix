@@ -221,7 +221,7 @@ function Banner() {
 
             if (filtered.length > 0) {
                 const { file_path } = filtered[0];
-                return <img src={`${imagePath}${file_path}`} alt={movie.title}></img>;
+                return <img src={`${imagePath}${file_path}`} alt={movie.title} loading="lazy"></img>;
             } else {
                 return <div className="text-title">{movie.title}</div>;
             }
@@ -235,7 +235,9 @@ function Banner() {
                     <div className="banner-motion">
                         <div className="full-screen bottom-layer">
                             <div className="image-wrapper">
-                                <img className="static-image" src={`${imagePath}${movie.backdrop_path}`} alt="backdrop" />
+                                {movie?.backdrop_path != undefined && (
+                                    <img className="static-image" src={`${imagePath}${movie?.backdrop_path}`} alt="backdrop" loading="lazy" />
+                                )}
                                 <div className="vignette banner-vignette"></div>
                                 <div className="vignette bottom-vignette"></div>
                             </div>
